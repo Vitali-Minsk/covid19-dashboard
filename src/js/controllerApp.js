@@ -1,4 +1,4 @@
-import CreatePageLayout from './nls/createPageLayout';
+import createPageLayout from './nls/createPageLayout';
 import CountriesList from './countryList/countriesList';
 import Data from './data';
 import CreateMap from './map/map';
@@ -62,7 +62,6 @@ export default class ControllerApp {
   }
 
   runModules = () => {
-    this.modules.pageCreator = new CreatePageLayout();
     this.modules.countriesList = new CountriesList(this.dataObj);
     this.modules.keyboard = new Keyboard();
     this.modules.search = new Search(this.dataObj);
@@ -71,7 +70,7 @@ export default class ControllerApp {
   async init() {
     this.dataObj = await this.data.load();
     this.runModules();
-    this.modules.pageCreator.renderPageLayout();
+    createPageLayout();
     this.modules.countriesList.countriesWrapperRender();
     this.modules.countriesList.countriesContentRender(this.state.indicator, this.state.isPer100k);
     this.modules.search.createSearchFiled();
