@@ -1,6 +1,6 @@
-import createElem from './utils/createElement';
-import elements from './nls/pageLayoutElements';
-import setCurrentDate from './utils/setCurrentDate';
+import createElem from '../utils/createElement';
+import elements from './pageLayoutElements';
+import setCurrentDate from '../utils/setCurrentDate';
 
 export default class CreatePageLayout {
   renderPageLayout = () => {

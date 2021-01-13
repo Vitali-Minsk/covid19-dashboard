@@ -1,9 +1,9 @@
 import mapboxgl from 'mapbox-gl/dist/mapbox-gl';
-import elements from './nls/pageLayoutElements';
-import createElem from './utils/createElement';
-import getSizeFromCount from './utils/mapMarkerSizeCounter';
-import clearParentContainer from './utils/clearParentContainer';
-import mapPopupBuild from './utils/mapPopupBuilder';
+import elements from '../nls/pageLayoutElements';
+import createElem from '../utils/createElement';
+import getSizeFromCount from './mapMarkerSizeCounter';
+import clearParentContainer from '../utils/clearParentContainer';
+import mapPopupBuild from './mapPopupBuilder';
 // import population from './nls/populationQuantity';
 
 const API_KEY = 'pk.eyJ1Ijoidml0YWxpYnVyYWtvdSIsImEiOiJja2lzd2hhZTYwcDBuMnFzYzNhazFnbmJiIn0.mfrcB7xDMdW2jJSJqOqnUQ';

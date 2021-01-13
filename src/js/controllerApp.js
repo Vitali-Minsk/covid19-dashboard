@@ -1,15 +1,15 @@
-import CreatePageLayout from './createPageLayout';
-import CountriesList from './countriesList';
+import CreatePageLayout from './nls/createPageLayout';
+import CountriesList from './countryList/countriesList';
 import Data from './data';
-import CreateMap from './map';
-import Keyboard from './keyboard';
-import Search from './search';
-import mapCountryIdentify from './utils/mapCountryIdentificator';
-import Table from './table';
-import ControlPanel from './controlPanel';
+import CreateMap from './map/map';
+import Keyboard from './search/keyboard';
+import Search from './search/search';
+import mapCountryIdentify from './map/mapCountryIdentificator';
+import Table from './table/table';
+import ControlPanel from './nls/controlPanel';
 import changeIndicator from './utils/changeIndicator';
 import totalToToday from './utils/totalToToday';
-import ControllerChart from './controller-chart';
+import ControllerChart from './chart/controllerChart';
 import clearParentContainer from './utils/clearParentContainer';
 
 export default class ControllerApp {

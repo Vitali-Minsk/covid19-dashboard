@@ -1,6 +1,6 @@
-import createElem from './utils/createElement';
-import clearParentContainer from './utils/clearParentContainer';
-import translatePer100k from './utils/translatePer100k';
+import createElem from '../utils/createElement';
+import clearParentContainer from '../utils/clearParentContainer';
+import translatePer100k from '../utils/translatePer100k';
 
 export default class Table {
   createTableLayout = (data, isPer100k, isToday) => {

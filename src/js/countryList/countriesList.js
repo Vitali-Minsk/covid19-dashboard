@@ -1,5 +1,5 @@
-import createElem from './utils/createElement';
-import translatePer100k from './utils/translatePer100k';
+import createElem from '../utils/createElement';
+import translatePer100k from '../utils/translatePer100k';
 
 export default class CountriesList {
   constructor(data) {
