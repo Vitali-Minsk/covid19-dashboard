@@ -2,9 +2,8 @@ import mapboxgl from 'mapbox-gl/dist/mapbox-gl';
 import elements from '../nls/pageLayoutElements';
 import createElem from '../utils/createElement';
 import getSizeFromCount from './mapMarkerSizeCounter';
-import clearParentContainer from '../utils/clearParentContainer';
+import clearContainer from '../utils/clearContainer';
 import mapPopupBuild from './mapPopupBuilder';
-// import population from './nls/populationQuantity';
 
 const API_KEY = 'pk.eyJ1Ijoidml0YWxpYnVyYWtvdSIsImEiOiJja2lzd2hhZTYwcDBuMnFzYzNhazFnbmJiIn0.mfrcB7xDMdW2jJSJqOqnUQ';
 
@@ -53,7 +52,7 @@ export default class Map {
 
   renderLegend = (markingList) => {
     const legend = document.querySelector('.map-legend');
-    clearParentContainer(legend);
+    clearContainer(legend);
     if (markingList === 'big' || !markingList) { legend.insertAdjacentHTML('afterbegin', elements.mapLegend.markingBig); }
     if (markingList === 'middle') { legend.insertAdjacentHTML('afterbegin', elements.mapLegend.markingMiddle); }
     if (markingList === 'small') { legend.insertAdjacentHTML('afterbegin', elements.mapLegend.markingSmall); }
@@ -61,7 +60,7 @@ export default class Map {
 
   renderPopup = (country, indicator, indicatorCount) => {
     const popup = document.querySelector('.mapboxgl-popup');
-    clearParentContainer(popup);
+    clearContainer(popup);
     popup.insertAdjacentHTML('afterbegin', mapPopupBuild(country, indicator, indicatorCount));
   }
 

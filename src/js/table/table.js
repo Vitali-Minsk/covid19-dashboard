@@ -1,11 +1,11 @@
 import createElem from '../utils/createElement';
-import clearParentContainer from '../utils/clearParentContainer';
+import clearContainer from '../utils/clearContainer';
 import translatePer100k from '../utils/translatePer100k';
 
 export default class Table {
   createTableLayout = (data, isPer100k, isToday) => {
     const tableContainer = document.querySelector('.table');
-    clearParentContainer(tableContainer);
+    clearContainer(tableContainer);
     const fragment = document.createDocumentFragment();
     data.forEach((dataElement) => {
       const tr = createElem('tr');
@@ -33,7 +33,7 @@ export default class Table {
   createTableCountry = (data, currentCountry, isPer100k, isToday) => {
     const tableContainer = document.querySelector('.table');
     const dataElement = data.find((el) => el.country === currentCountry);
-    clearParentContainer(tableContainer);
+    clearContainer(tableContainer);
     const tr = createElem('tr');
     let elemCases = dataElement.cases;
     let elemDeaths = dataElement.deaths;

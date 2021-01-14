@@ -10,7 +10,7 @@ import ControlPanel from './nls/controlPanel';
 import changeIndicator from './utils/changeIndicator';
 import totalToToday from './utils/totalToToday';
 import ControllerChart from './chart/controllerChart';
-import clearParentContainer from './utils/clearParentContainer';
+import clearContainer from './utils/clearContainer';
 
 export default class ControllerApp {
   constructor() {
@@ -246,7 +246,7 @@ export default class ControllerApp {
   }
 
   updateCountriesListContent = () => {
-    clearParentContainer(this.listContainer);
+    clearContainer(this.listContainer);
     this.modules.countriesList.countriesContentRender(this.state.indicator, this.state.isPer100k);
   }
 
