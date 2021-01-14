@@ -354,12 +354,12 @@ export default class ControllerApp {
   displayWorldGlobalCases() {
     const displayGlobal = document.querySelector('.container_info');
     const totalCases = this.dataObj.reduce((acc, dataElem) => acc + dataElem.cases, 0);
-    displayGlobal.innerHTML = totalCases;
+    displayGlobal.innerHTML = totalCases.toLocaleString('ru-RU');
   }
 
   displayCountryGlobalCases(currentCountry) {
     const displayGlobal = document.querySelector('.container_info');
     const totalCases = this.dataObj.find((elem) => elem.country === currentCountry).cases;
-    displayGlobal.innerHTML = totalCases;
+    displayGlobal.innerHTML = totalCases.toLocaleString('ru-RU');
   }
 }
