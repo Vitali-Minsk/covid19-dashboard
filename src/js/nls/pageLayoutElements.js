@@ -1,4 +1,5 @@
-import links from './links';
+import links from './icons';
+import authorsLinks from './authors';
 
 export default {
   headerTitle: '<h1 class="header__title">COVID-19 Dashboard</h1>',
@@ -25,10 +26,10 @@ export default {
   </section>
   <section class='container container_chart'></section>`,
   footerElements: `
-  <a href='${links.author1}' target='_blank'><img class="footer__img" src="${links.gitHubImg}" alt="Author"></a>
-  <a href='${links.author2}' target='_blank'><img class="footer__img" src="${links.gitHubImg}" alt="Author"></a>
-  <a href='${links.author3}' target='_blank'><img class="footer__img" src="${links.gitHubImg}" alt="Author"></a>
-  <a href='${links.author4}' target='_blank'><img class="footer__img" src="${links.gitHubImg}" alt="Author"></a>
+  <a class="author" href='${authorsLinks.author1.link}' target='_blank'><img class="footer__img" src="${links.gitHubImg}" alt="Author">${authorsLinks.author1.name}</a>
+  <a class="author" href='${authorsLinks.author2.link}' target='_blank'><img class="footer__img" src="${links.gitHubImg}" alt="Author">${authorsLinks.author2.name}</a>
+  <a class="author" href='${authorsLinks.author3.link}' target='_blank'><img class="footer__img" src="${links.gitHubImg}" alt="Author">${authorsLinks.author3.name}</a>
+  <a class="author" href='${authorsLinks.author4.link}' target='_blank'><img class="footer__img" src="${links.gitHubImg}" alt="Author">${authorsLinks.author4.name}</a>
   <span class="footer__year">2020</span>
   <a href='${links.school}' target='_blank'><img class="footer__img" src="${links.schoolImg}" alt="School"></a>`,
   mapLegend: {
