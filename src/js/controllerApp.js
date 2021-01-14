@@ -143,68 +143,92 @@ export default class ControllerApp {
 
   controlButtonHandler = (event) => {
     if (event.target.closest('.btn-global')) {
-      this.setCountryState();
-      this.updateTableContent();
-      this.mapCreator.mapFlyOut();
-      this.unlistenCountryList();
-      this.updateCountriesListContent();
-      this.listenCountryList();
-      this.updateMapMarkersSize();
-      this.displayWorldGlobalCases();
-      this.chartController
-        .renderChart(this.state.country, this.state.isPer100k, this.state.indicator);
+      this.btnGlobalHandler();
     }
     if (event.target.closest('.toggle__today')) {
-      this.state.isToday = !this.state.isToday;
-      this.state.indicator = totalToToday(this.state.isToday, this.state.indicator);
-      this.activateTodayButtons();
-      this.unlistenCountryList();
-      this.updateCountriesListContent();
-      this.listenCountryList();
-      this.updateTableContent();
-      this.updateMapMarkersSize();
-      this.chartController.changeChart(this.state.indicator);
+      this.toggleTodayHandler();
     }
     if (event.target.closest('.toggle__per100k')) {
-      this.state.isPer100k = !this.state.isPer100k;
-      this.activatePer100kButtons();
-      this.unlistenCountryList();
-      this.updateCountriesListContent();
-      this.listenCountryList();
-      this.updateTableContent();
-      this.updateMapMarkersSize();
-      this.chartController.changeDimensions(this.state.isPer100k, this.state.indicator);
+      this.togglePer100kHandler();
     }
     if (event.target.closest('.btn-next')) {
-      this.state.indicator = changeIndicator(this.state.indicator, 'next', this.state.isToday);
-      this.unlistenCountryList();
-      this.updateCountriesListContent();
-      this.listenCountryList();
-      this.updateMapMarkersSize();
-      this.updateControlPanelDisplays();
-      this.chartController.changeChart(this.state.indicator);
+      this.btnNextHandler();
     }
     if (event.target.closest('.btn-prev')) {
-      this.state.indicator = changeIndicator(this.state.indicator, 'prev', this.state.isToday);
-      this.unlistenCountryList();
-      this.updateCountriesListContent();
-      this.listenCountryList();
-      this.updateMapMarkersSize();
-      this.updateControlPanelDisplays();
-      this.chartController.changeChart(this.state.indicator);
+      this.btnPrevHandler();
     }
     if (event.target.closest('.marker')) {
-      const targetCodeCountry = event.target.dataset.code;
-      const paramsPopup = mapCountryIdentify(this.dataObj, targetCodeCountry, this.state.indicator);
-      const countryTarget = paramsPopup[0];
-      this.mapCreator.mapFlyToCountry(countryTarget);
-      this.table.createTableCountry(this.dataObj, countryTarget);
-      this.setCountryState(countryTarget);
-      this.goToListCountry(countryTarget);
-      this.displayCountryGlobalCases(countryTarget);
-      this.chartController
-        .renderChart(this.state.country, this.state.isPer100k, this.state.indicator);
+      this.markersHandler(event);
     }
+  }
+
+  btnGlobalHandler = () => {
+    this.setCountryState();
+    this.updateTableContent();
+    this.mapCreator.mapFlyOut();
+    this.unlistenCountryList();
+    this.updateCountriesListContent();
+    this.listenCountryList();
+    this.updateMapMarkersSize();
+    this.displayWorldGlobalCases();
+    this.chartController
+      .renderChart(this.state.country, this.state.isPer100k, this.state.indicator);
+  }
+
+  toggleTodayHandler = () => {
+    this.state.isToday = !this.state.isToday;
+    this.state.indicator = totalToToday(this.state.isToday, this.state.indicator);
+    this.activateTodayButtons();
+    this.unlistenCountryList();
+    this.updateCountriesListContent();
+    this.listenCountryList();
+    this.updateTableContent();
+    this.updateMapMarkersSize();
+    this.chartController.changeChart(this.state.indicator);
+  }
+
+  togglePer100kHandler = () => {
+    this.state.isPer100k = !this.state.isPer100k;
+    this.activatePer100kButtons();
+    this.unlistenCountryList();
+    this.updateCountriesListContent();
+    this.listenCountryList();
+    this.updateTableContent();
+    this.updateMapMarkersSize();
+    this.chartController.changeDimensions(this.state.isPer100k, this.state.indicator);
+  }
+
+  btnNextHandler = () => {
+    this.state.indicator = changeIndicator(this.state.indicator, 'next', this.state.isToday);
+    this.unlistenCountryList();
+    this.updateCountriesListContent();
+    this.listenCountryList();
+    this.updateMapMarkersSize();
+    this.updateControlPanelDisplays();
+    this.chartController.changeChart(this.state.indicator);
+  }
+
+  btnPrevHandler = () => {
+    this.state.indicator = changeIndicator(this.state.indicator, 'prev', this.state.isToday);
+    this.unlistenCountryList();
+    this.updateCountriesListContent();
+    this.listenCountryList();
+    this.updateMapMarkersSize();
+    this.updateControlPanelDisplays();
+    this.chartController.changeChart(this.state.indicator);
+  }
+
+  markersHandler = (event) => {
+    const targetCodeCountry = event.target.dataset.code;
+    const paramsPopup = mapCountryIdentify(this.dataObj, targetCodeCountry, this.state.indicator);
+    const countryTarget = paramsPopup[0];
+    this.mapCreator.mapFlyToCountry(countryTarget);
+    this.table.createTableCountry(this.dataObj, countryTarget);
+    this.setCountryState(countryTarget);
+    this.goToListCountry(countryTarget);
+    this.displayCountryGlobalCases(countryTarget);
+    this.chartController
+      .renderChart(this.state.country, this.state.isPer100k, this.state.indicator);
   }
 
   activateFullScreen = (event) => {
