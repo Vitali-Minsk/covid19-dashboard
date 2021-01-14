@@ -9,13 +9,6 @@ export default class ModelChart {
     this.dataForChart = null;
     this.currentCountry = '';
 
-    // this.queries = {
-    //   baseUrl: 'https://disease.sh/v3/covid-19/historical/',
-    //   daysParam: 'lastdays=all',
-    //   allPopulation: 'https://disease.sh/v3/covid-19/all',
-    //   countryPopulation: 'https://disease.sh/v3/covid-19/countries/',
-    // };
-
     this.chartColors = {
       cases: 'rgba(255, 0, 0, 0.8)',
       deaths: 'rgba(255, 255, 255, 0.8)',

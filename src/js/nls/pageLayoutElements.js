@@ -35,37 +35,37 @@ export default {
   mapLegend: {
     markingBig: `
     <h4>Confirmed</h4>
-    <div><span></span>1,000,000 – 5,000,000</div>
-    <div><span></span>500,000 – 1,000,000</div>
-    <div><span></span>400,000 – 500,000</div>
-    <div><span></span>250,000 – 400,000</div>
-    <div><span></span>100,000 – 250,000</div>
-    <div><span></span>50,000 – 100,000</div>
-    <div><span></span>20,000 – 50,000</div>
-    <div><span></span>3,000 – 20,000</div>
-    <div><span></span>1,000 – 3,000</div>`,
+    <div><span class="legend-marker"></span>1,000,000 – 5,000,000</div>
+    <div><span class="legend-marker"></span>500,000 – 1,000,000</div>
+    <div><span class="legend-marker"></span>400,000 – 500,000</div>
+    <div><span class="legend-marker"></span>250,000 – 400,000</div>
+    <div><span class="legend-marker"></span>100,000 – 250,000</div>
+    <div><span class="legend-marker"></span>50,000 – 100,000</div>
+    <div><span class="legend-marker"></span>20,000 – 50,000</div>
+    <div><span class="legend-marker"></span>3,000 – 20,000</div>
+    <div><span class="legend-marker"></span>1,000 – 3,000</div>`,
     markingMiddle: `
     <h4>Confirmed</h4>
-    <div><span></span>100,000 – 500,000</div>
-    <div><span></span>50,000 – 100,000</div>
-    <div><span></span>40,000 – 50,000</div>
-    <div><span></span>25,000 – 40,000</div>
-    <div><span></span>10,000 – 25,000</div>
-    <div><span></span>5,000 – 10,000</div>
-    <div><span></span>2,000 – 5,000</div>
-    <div><span></span>300 – 2,000</div>
-    <div><span></span>100 – 300</div>`,
+    <div><span class="legend-marker"></span>100,000 – 500,000</div>
+    <div><span class="legend-marker"></span>50,000 – 100,000</div>
+    <div><span class="legend-marker"></span>40,000 – 50,000</div>
+    <div><span class="legend-marker"></span>25,000 – 40,000</div>
+    <div><span class="legend-marker"></span>10,000 – 25,000</div>
+    <div><span class="legend-marker"></span>5,000 – 10,000</div>
+    <div><span class="legend-marker"></span>2,000 – 5,000</div>
+    <div><span class="legend-marker"></span>300 – 2,000</div>
+    <div><span class="legend-marker"></span>100 – 300</div>`,
     markingSmall: `
     <h4>Confirmed</h4>
-    <div><span></span>10,000 – 50,000</div>
-    <div><span></span>5,000 – 10,000</div>
-    <div><span></span>4,000 – 5,000</div>
-    <div><span></span>2,500 – 4,000</div>
-    <div><span></span>1,000 – 2,500</div>
-    <div><span></span>500 – 1,000</div>
-    <div><span></span>200 – 500</div>
-    <div><span></span>30 – 200</div>
-    <div><span></span>10 – 30</div>`,
+    <div><span class="legend-marker"></span>10,000 – 50,000</div>
+    <div><span class="legend-marker"></span>5,000 – 10,000</div>
+    <div><span class="legend-marker"></span>4,000 – 5,000</div>
+    <div><span class="legend-marker"></span>2,500 – 4,000</div>
+    <div><span class="legend-marker"></span>1,000 – 2,500</div>
+    <div><span class="legend-marker"></span>500 – 1,000</div>
+    <div><span class="legend-marker"></span>200 – 500</div>
+    <div><span class="legend-marker"></span>30 – 200</div>
+    <div><span class="legend-marker"></span>10 – 30</div>`,
   },
   caseController: `
 <div class="button-container button-container__cases">
