@@ -1,4 +1,4 @@
-import createHTMLIcon from './utils/createIcon';
+import createHTMLIcon from '../utils/createIcon';
 
 export default class Keyboard {
   elements = {

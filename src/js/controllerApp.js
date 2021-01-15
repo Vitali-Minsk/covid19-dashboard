@@ -1,16 +1,16 @@
-import CreatePageLayout from './createPageLayout';
-import CountriesList from './countriesList';
+import createPageLayout from './nls/createPageLayout';
+import CountriesList from './countryList/countriesList';
 import Data from './data';
-import CreateMap from './map';
-import Keyboard from './keyboard';
-import Search from './search';
-import mapCountryIdentify from './utils/mapCountryIdentificator';
-import Table from './table';
-import ControlPanel from './controlPanel';
+import CreateMap from './map/map';
+import Keyboard from './search/keyboard';
+import Search from './search/search';
+import mapCountryIdentify from './map/mapCountryIdentificator';
+import Table from './table/table';
+import ControlPanel from './nls/controlPanel';
 import changeIndicator from './utils/changeIndicator';
 import totalToToday from './utils/totalToToday';
-import ControllerChart from './controller-chart';
-import clearParentContainer from './utils/clearParentContainer';
+import ControllerChart from './chart/controllerChart';
+import clearContainer from './utils/clearContainer';
 
 export default class ControllerApp {
   constructor() {
@@ -62,7 +62,6 @@ export default class ControllerApp {
   }
 
   runModules = () => {
-    this.modules.pageCreator = new CreatePageLayout();
     this.modules.countriesList = new CountriesList(this.dataObj);
     this.modules.keyboard = new Keyboard();
     this.modules.search = new Search(this.dataObj);
@@ -71,7 +70,7 @@ export default class ControllerApp {
   async init() {
     this.dataObj = await this.data.load();
     this.runModules();
-    this.modules.pageCreator.renderPageLayout();
+    createPageLayout();
     this.modules.countriesList.countriesWrapperRender();
     this.modules.countriesList.countriesContentRender(this.state.indicator, this.state.isPer100k);
     this.modules.search.createSearchFiled();
@@ -144,68 +143,92 @@ export default class ControllerApp {
 
   controlButtonHandler = (event) => {
     if (event.target.closest('.btn-global')) {
-      this.setCountryState();
-      this.updateTableContent();
-      this.mapCreator.mapFlyOut();
-      this.unlistenCountryList();
-      this.updateCountriesListContent();
-      this.listenCountryList();
-      this.updateMapMarkersSize();
-      this.displayWorldGlobalCases();
-      this.chartController
-        .renderChart(this.state.country, this.state.isPer100k, this.state.indicator);
+      this.btnGlobalHandler();
     }
     if (event.target.closest('.toggle__today')) {
-      this.state.isToday = !this.state.isToday;
-      this.state.indicator = totalToToday(this.state.isToday, this.state.indicator);
-      this.activateTodayButtons();
-      this.unlistenCountryList();
-      this.updateCountriesListContent();
-      this.listenCountryList();
-      this.updateTableContent();
-      this.updateMapMarkersSize();
-      this.chartController.changeChart(this.state.indicator);
+      this.toggleTodayHandler();
     }
     if (event.target.closest('.toggle__per100k')) {
-      this.state.isPer100k = !this.state.isPer100k;
-      this.activatePer100kButtons();
-      this.unlistenCountryList();
-      this.updateCountriesListContent();
-      this.listenCountryList();
-      this.updateTableContent();
-      this.updateMapMarkersSize();
-      this.chartController.changeDimensions(this.state.isPer100k, this.state.indicator);
+      this.togglePer100kHandler();
     }
     if (event.target.closest('.btn-next')) {
-      this.state.indicator = changeIndicator(this.state.indicator, 'next', this.state.isToday);
-      this.unlistenCountryList();
-      this.updateCountriesListContent();
-      this.listenCountryList();
-      this.updateMapMarkersSize();
-      this.updateControlPanelDisplays();
-      this.chartController.changeChart(this.state.indicator);
+      this.btnNextHandler();
     }
     if (event.target.closest('.btn-prev')) {
-      this.state.indicator = changeIndicator(this.state.indicator, 'prev', this.state.isToday);
-      this.unlistenCountryList();
-      this.updateCountriesListContent();
-      this.listenCountryList();
-      this.updateMapMarkersSize();
-      this.updateControlPanelDisplays();
-      this.chartController.changeChart(this.state.indicator);
+      this.btnPrevHandler();
     }
     if (event.target.closest('.marker')) {
-      const targetCodeCountry = event.target.dataset.code;
-      const paramsPopup = mapCountryIdentify(this.dataObj, targetCodeCountry, this.state.indicator);
-      const countryTarget = paramsPopup[0];
-      this.mapCreator.mapFlyToCountry(countryTarget);
-      this.table.createTableCountry(this.dataObj, countryTarget);
-      this.setCountryState(countryTarget);
-      this.goToListCountry(countryTarget);
-      this.displayCountryGlobalCases(countryTarget);
-      this.chartController
-        .renderChart(this.state.country, this.state.isPer100k, this.state.indicator);
+      this.markersHandler(event);
     }
+  }
+
+  btnGlobalHandler = () => {
+    this.setCountryState();
+    this.updateTableContent();
+    this.mapCreator.mapFlyOut();
+    this.unlistenCountryList();
+    this.updateCountriesListContent();
+    this.listenCountryList();
+    this.updateMapMarkersSize();
+    this.displayWorldGlobalCases();
+    this.chartController
+      .renderChart(this.state.country, this.state.isPer100k, this.state.indicator);
+  }
+
+  toggleTodayHandler = () => {
+    this.state.isToday = !this.state.isToday;
+    this.state.indicator = totalToToday(this.state.isToday, this.state.indicator);
+    this.activateTodayButtons();
+    this.unlistenCountryList();
+    this.updateCountriesListContent();
+    this.listenCountryList();
+    this.updateTableContent();
+    this.updateMapMarkersSize();
+    this.chartController.changeChart(this.state.indicator);
+  }
+
+  togglePer100kHandler = () => {
+    this.state.isPer100k = !this.state.isPer100k;
+    this.activatePer100kButtons();
+    this.unlistenCountryList();
+    this.updateCountriesListContent();
+    this.listenCountryList();
+    this.updateTableContent();
+    this.updateMapMarkersSize();
+    this.chartController.changeDimensions(this.state.isPer100k, this.state.indicator);
+  }
+
+  btnNextHandler = () => {
+    this.state.indicator = changeIndicator(this.state.indicator, 'next', this.state.isToday);
+    this.unlistenCountryList();
+    this.updateCountriesListContent();
+    this.listenCountryList();
+    this.updateMapMarkersSize();
+    this.updateControlPanelDisplays();
+    this.chartController.changeChart(this.state.indicator);
+  }
+
+  btnPrevHandler = () => {
+    this.state.indicator = changeIndicator(this.state.indicator, 'prev', this.state.isToday);
+    this.unlistenCountryList();
+    this.updateCountriesListContent();
+    this.listenCountryList();
+    this.updateMapMarkersSize();
+    this.updateControlPanelDisplays();
+    this.chartController.changeChart(this.state.indicator);
+  }
+
+  markersHandler = (event) => {
+    const targetCodeCountry = event.target.dataset.code;
+    const paramsPopup = mapCountryIdentify(this.dataObj, targetCodeCountry, this.state.indicator);
+    const countryTarget = paramsPopup[0];
+    this.mapCreator.mapFlyToCountry(countryTarget);
+    this.table.createTableCountry(this.dataObj, countryTarget);
+    this.setCountryState(countryTarget);
+    this.goToListCountry(countryTarget);
+    this.displayCountryGlobalCases(countryTarget);
+    this.chartController
+      .renderChart(this.state.country, this.state.isPer100k, this.state.indicator);
   }
 
   activateFullScreen = (event) => {
@@ -247,7 +270,7 @@ export default class ControllerApp {
   }
 
   updateCountriesListContent = () => {
-    clearParentContainer(this.listContainer);
+    clearContainer(this.listContainer);
     this.modules.countriesList.countriesContentRender(this.state.indicator, this.state.isPer100k);
   }
 
@@ -331,12 +354,12 @@ export default class ControllerApp {
   displayWorldGlobalCases() {
     const displayGlobal = document.querySelector('.container_info');
     const totalCases = this.dataObj.reduce((acc, dataElem) => acc + dataElem.cases, 0);
-    displayGlobal.innerHTML = totalCases;
+    displayGlobal.innerHTML = totalCases.toLocaleString('ru-RU');
   }
 
   displayCountryGlobalCases(currentCountry) {
     const displayGlobal = document.querySelector('.container_info');
     const totalCases = this.dataObj.find((elem) => elem.country === currentCountry).cases;
-    displayGlobal.innerHTML = totalCases;
+    displayGlobal.innerHTML = totalCases.toLocaleString('ru-RU');
   }
 }

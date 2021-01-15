@@ -1,5 +1,5 @@
-import elements from './nls/pageLayoutElements';
-import createElem from './utils/createElement';
+import elements from './pageLayoutElements';
+import createElem from '../utils/createElement';
 
 export default class ControlPanel {
   createMapControl = () => {

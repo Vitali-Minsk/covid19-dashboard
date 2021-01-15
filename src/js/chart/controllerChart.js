@@ -1,5 +1,5 @@
-import ModelChart from './model-chart';
-import ViewChart from './view-chart';
+import ModelChart from './modelChart';
+import ViewChart from './viewChart';
 
 export default class ControllerChart {
   constructor() {

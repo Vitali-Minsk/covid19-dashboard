@@ -4,10 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "env NODE_ENV=development webpack --mode development",
-    "build": "env NODE_ENV=production webpack --mode production",
+    "dev": "env NODE_ENV=development webpack",
+    "build": "env NODE_ENV=production webpack",
     "eslint": "eslint src/*.js",
-    "test": "npm run eslint",
     "start": "env NODE_ENV=development webpack serve --open chrome.exe"
   },
   "browserslist": "> 0.25%, not dead",

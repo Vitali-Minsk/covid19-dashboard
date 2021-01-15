@@ -1,4 +1,5 @@
 import moment from 'moment';
+import api from '../api';
 
 export default class ModelChart {
   constructor() {
@@ -7,13 +8,6 @@ export default class ModelChart {
     this.covidData = null;
     this.dataForChart = null;
     this.currentCountry = '';
-
-    this.queries = {
-      baseUrl: 'https://disease.sh/v3/covid-19/historical/',
-      daysParam: 'lastdays=all',
-      allPopulation: 'https://disease.sh/v3/covid-19/all',
-      countryPopulation: 'https://disease.sh/v3/covid-19/countries/',
-    };
 
     this.chartColors = {
       cases: 'rgba(255, 0, 0, 0.8)',
@@ -47,9 +41,9 @@ export default class ModelChart {
     let query = '';
     this.isPer100K = true;
     if (this.isForCountry) {
-      query = `${this.queries.countryPopulation}${this.currentCountry}`;
+      query = `${api.countryPopulation}${this.currentCountry}`;
     } else {
-      query = `${this.queries.allPopulation}`;
+      query = `${api.allPopulation}`;
     }
     await fetch(query)
       .then((response) => response.json())
@@ -144,7 +138,7 @@ export default class ModelChart {
     return newNum;
   }
 
-  getFullUrl = (country) => `${this.queries.baseUrl}${country}?${this.queries.daysParam}`;
+  getFullUrl = (country) => `${api.baseUrl}${country}?${api.daysParam}`;
 
   getDataForChart = (index) => JSON.stringify(this.dataForChart[index]);
 }

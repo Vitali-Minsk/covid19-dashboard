@@ -1,4 +1,4 @@
-import translatePer100k from './translatePer100k';
+import translatePer100k from '../utils/translatePer100k';
 
 export default function mapCountryIdentify(data, countryCode, indicator, isPer100k) {
   const dataElement = data.find((dataElem) => dataElem.countryInfo.iso3 === countryCode);

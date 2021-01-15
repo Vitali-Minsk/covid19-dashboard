@@ -1,5 +1,5 @@
-import createElem from './utils/createElement';
-import createIcon from './utils/createIcon';
+import createElem from '../utils/createElement';
+import createIcon from '../utils/createIcon';
 
 export default class Search {
   constructor(data) {

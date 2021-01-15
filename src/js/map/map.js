@@ -1,10 +1,9 @@
 import mapboxgl from 'mapbox-gl/dist/mapbox-gl';
-import elements from './nls/pageLayoutElements';
-import createElem from './utils/createElement';
-import getSizeFromCount from './utils/mapMarkerSizeCounter';
-import clearParentContainer from './utils/clearParentContainer';
-import mapPopupBuild from './utils/mapPopupBuilder';
-// import population from './nls/populationQuantity';
+import elements from '../nls/pageLayoutElements';
+import createElem from '../utils/createElement';
+import getSizeFromCount from './mapMarkerSizeCounter';
+import clearContainer from '../utils/clearContainer';
+import mapPopupBuild from './mapPopupBuilder';
 
 const API_KEY = 'pk.eyJ1Ijoidml0YWxpYnVyYWtvdSIsImEiOiJja2lzd2hhZTYwcDBuMnFzYzNhazFnbmJiIn0.mfrcB7xDMdW2jJSJqOqnUQ';
 
@@ -28,6 +27,7 @@ export default class Map {
     data.forEach((dataElement) => {
       const countryId = dataElement.countryInfo.iso3;
       const { cases } = dataElement;
+      if (!countryId) return;
       const el = this.renderMarker(countryId, cases);
       new mapboxgl.Marker(el)
         .setLngLat([dataElement.countryInfo.long, dataElement.countryInfo.lat])
@@ -53,15 +53,16 @@ export default class Map {
 
   renderLegend = (markingList) => {
     const legend = document.querySelector('.map-legend');
-    clearParentContainer(legend);
+    clearContainer(legend);
     if (markingList === 'big' || !markingList) { legend.insertAdjacentHTML('afterbegin', elements.mapLegend.markingBig); }
     if (markingList === 'middle') { legend.insertAdjacentHTML('afterbegin', elements.mapLegend.markingMiddle); }
     if (markingList === 'small') { legend.insertAdjacentHTML('afterbegin', elements.mapLegend.markingSmall); }
+    this.legendMarkerSizeControl();
   }
 
   renderPopup = (country, indicator, indicatorCount) => {
     const popup = document.querySelector('.mapboxgl-popup');
-    clearParentContainer(popup);
+    clearContainer(popup);
     popup.insertAdjacentHTML('afterbegin', mapPopupBuild(country, indicator, indicatorCount));
   }
 
@@ -85,8 +86,9 @@ export default class Map {
   markerResize = (indicator, isPer100k) => {
     let isLegendRendered = false;
     for (let i = 0; i < this.markers.length; i += 1) {
-      const currentIndicatorCount = this.data[i][indicator];
       const currentMarker = this.markers[i];
+      const currentDataElem = this.countryIdentify(currentMarker);
+      const currentIndicatorCount = currentDataElem[indicator];
       if ((indicator === 'cases' || indicator === 'deaths' || indicator === 'recovered') && !isPer100k) {
         this.markerSizeControl(currentMarker, currentIndicatorCount, 'big');
         if (!isLegendRendered) {
@@ -107,6 +109,7 @@ export default class Map {
         }
       }
     }
+    this.legendMarkerSizeControl();
   }
 
   markerSizeControl = (marker, count, sizeNumbers) => {
@@ -114,5 +117,16 @@ export default class Map {
     const currentMarker = marker.style;
     currentMarker.width = `${size}px`;
     currentMarker.height = `${size}px`;
+  }
+
+  countryIdentify = (marker) => this.data.find((e) => e.countryInfo.iso3 === marker.dataset.code)
+
+  legendMarkerSizeControl = () => {
+    const markers = document.querySelectorAll('.legend-marker');
+    for (let i = 0, markerSize = 10; i < markers.length; i += 1, markerSize -= 1) {
+      const currentMarker = markers.item(i);
+      currentMarker.style.width = `${markerSize}px`;
+      currentMarker.style.height = `${markerSize}px`;
+    }
   }
 }
